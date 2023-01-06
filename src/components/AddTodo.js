@@ -1,39 +1,36 @@
 import React, { useState } from "react";
-import { Todo } from "./Todo";
-import "../styles/App.css";
 
-const AddTodo = ({ dispatch, state }) => {
-    const [text, setText] = useState("");
+const AddTodo = ({ dispatch }) => {
 
-    function handleOnSubmit(e) {
+    const [taskArr, setTaskArr] = useState([]);
+    const [inputVal, setVal] = useState("");
+    const [DateId, setId] = useState(new Date().getTime().toString());
+
+    function submitHandler(e) {
         e.preventDefault();
-        dispatch({ type: "ADD", value: text });
-        setText("");
+        setId(new Date().getTime().toString());
+        setTaskArr(
+            [...taskArr,
+            { id: DateId, title: inputVal }
+            ]
+        )
+        dispatch({ type: "ADD", payload: { title: inputVal, id: DateId } });
+        setVal("");
     }
 
-    function handleDelete(id) {
-        const newData = state.todos.filter((e, i) => e.id !== id);
-        dispatch({ type: "DELETE", data: newData });
+
+    function inputFun(e) {
+        setVal(e.target.value);
     }
 
     return (
         <>
-            <form id="todo-form" onSubmit={(e) => handleOnSubmit(e)}>
-                <input
-                    type="text"
-                    id="todo-input"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                />
-                <button className="addBtn">Add</button>
+            <form id="todo-form" onSubmit={submitHandler}>
+                <input id="todo-input" type="textarea" required onChange={inputFun} value={inputVal} />
+                <button type="submit">submit</button>
             </form>
-            <div className="todoList">
-                {state.todos.map((e, i) => (
-                    <Todo key={e.id} {...e} handleDelete={handleDelete} />
-                ))}
-            </div>
         </>
-    );
-};
+    )
+}
 
-export { AddTodo };
+export { AddTodo }
