@@ -18,7 +18,7 @@ const Todo = ({ dispatch, state }) => {
                     }
                     className="todo-delete"
                   >
-                    DELETE
+                    Delete
                   </button>
                 </div>
                 

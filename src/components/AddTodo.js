@@ -27,7 +27,7 @@ const AddTodo = ({ dispatch }) => {
         <>
             <form id="todo-form" onSubmit={submitHandler}>
                 <input id="todo-input" type="textarea" required onChange={inputFun} value={inputVal} />
-                <button type="submit">submit</button>
+                <button type="submit">Add</button>
             </form>
         </>
     )
